@@ -1,7 +1,20 @@
 # NLP Summariser
 
+**Index:**
+1. [Problem Statement](#problem-statement)
+2. [Approach](#approach)
+3. [Results](#results)
+   - [Training logs](#training-logs)
+   - [Word cloud](#visualization-of-key-themesexrestaurant-reviews)
+   - [Performance metrics (ROGUE and BLEU scores)](#performance-metrics)
+4. [Challenges](#challenges)
+5. [Instructions to run the REST API](#instructions-to-run-the-rest-api)
+6. [Screenshots of REST API results](#api-results)
+
 ## Problem Statement
-The objective of this project is to build a model that generates concise summaries of feedback or reviews, enabling the identification of key themes and sentiments. This tool aims to help businesses or researchers quickly understand customer feedback and derive actionable insights.
+The objective of this project is to build a model that generates concise summaries of feedback or reviews, enabling the identification of key themes. This tool aims to help businesses or researchers quickly understand customer feedback and derive actionable insights.
+
+Here's the link to my google colab notebook - https://colab.research.google.com/drive/1RIv7L6kGMDObuWA-n7Zzfre2bYmz_iHR?usp=sharing
 
 ## Approach
 The following methodology was followed to solve the problem:
@@ -24,19 +37,23 @@ The following methodology was followed to solve the problem:
    - For deeper insights, reviews categorized under "Restaurants" were filtered and combined to generate a category-specific word cloud.
 
 ## Results
+### Training Logs
+![training logs](/images/training%20logs.png)
+### Visualization of Key Themes(ex:restaurant reviews)
+![word cloud](/images/restaurant%20word%20cloud.png)
 
 ### Performance Metrics
 - **ROUGE Scores (Average):**
   - **ROUGE-1**: Precision: `0.9869`, Recall: `0.3455`, F-Measure: `0.4801`
   - **ROUGE-L**: Precision: `0.9540`, Recall: `0.3353`, F-Measure: `0.4655`
+  ![rouge](/images/rouge%20score.png)
 - **BLEU Score**: Average BLEU score across all reviews: `0.1556`
+  ![bleu](/images/bleu%20score.png)
 
 ### Observations
 - The model achieved higher precision but struggled with recall, indicating it performed well at identifying relevant information 
 - Shorter and well-structured reviews were summarized more effectively compared to longer, unstructured ones.
 - BLEU scores revealed that some summaries closely aligned with the original text, while others had lesser alignment.
-
-  
 
 ## Challenges
 1. **Data Quality**:
@@ -56,7 +73,25 @@ The following methodology was followed to solve the problem:
    - Solution: Used multiple evaluation metrics (ROUGE, BLEU) to ensure balanced assessment.
 
 
-## How to Use
+## Instructions to run the REST API
 1. Clone the repository:
    ```bash
    git clone https://github.com/andarna1/NLPsummariser.git
+
+2. Run the flask server (contains path to trained model saved from jupyter notebook)
+   ```bash
+   python3 -m venv myenv
+   source myenv/bin/activate
+   pip install -r requirements.txt
+   python3 main.py
+
+3. Use Postman to test the REST API, make POST requests to `http://127.0.0.1:5000/summarize` and supply as input the product reviews you want to summarise.
+
+## API Results
+
+1. Product Review Example
+![product](/images/product.png)
+2. Restaurant Review Example
+![restaurant](/images/restaurant.png)
+3. News Article Summary
+![news](/images/news.png)
